@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: secure-demo
+  labels:
+    app: secure-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: secure-demo
+  template:
+    metadata:
+      labels:
+        app: secure-demo
+    spec:
+      containers:
+        - name: app
+          image: sumitk5550/secure-cicd:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"

@@ -1,0 +1,9 @@
+{
+  "name": "secure-cicd-demo",
+  "version": "1.0.0",
+  "description": "Secure Docker CI/CD pipeline with Trivy and Kubernetes",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  }
+}
