@@ -26,21 +26,37 @@ pipeline {
             }
         }
 
-        stage('Trivy Security Scan') {
-            steps {
-                sh '''
-                    set -eu
+        
+stage('Trivy Security Scan') {
+    steps {
+        sh '''
+            set -eu
 
-                    trivy --config "" image \
-                      --format json \
-                      --output scan-report.json \
-                      --severity HIGH,CRITICAL \
-                      --exit-code 1 \
-                      --ignore-unfixed \
-                      "$IMAGE_NAME"
-                '''
-            }
-        }
+            echo "Checking image for HIGH and CRITICAL vulnerabilities..."
+
+            # Display findings for troubleshooting.
+            trivy image \
+              --ignorefile /dev/null \
+              --scanners vuln \
+              --severity HIGH,CRITICAL \
+              --ignore-unfixed \
+              --exit-code 0 \
+              "$IMAGE_NAME"
+
+            # Enforce the security gate and save a JSON report.
+            trivy image \
+              --ignorefile /dev/null \
+              --scanners vuln \
+              --format json \
+              --output scan-report.json \
+              --severity HIGH,CRITICAL \
+              --ignore-unfixed \
+              --exit-code 1 \
+              "$IMAGE_NAME"
+        '''
+    }
+}
+
 
         stage('Push Approved Image') {
             steps {
