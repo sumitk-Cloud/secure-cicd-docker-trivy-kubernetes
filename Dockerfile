@@ -1,8 +1,8 @@
 FROM node:22-alpine
 
-RUN npm install --global npm@latest 
-    && npm install --prefix /usr/local/lib/node_modules/npm undici@6.29.1 
-    && node -p "require('/usr/local/lib/node_modules/npm/node_modules/undici/package.json').version"
+RUN npm install --global npm@latest && 
+    npm install --prefix /usr/local/lib/node_modules/npm undici@6.29.1 && 
+    node -p "require('/usr/local/lib/node_modules/npm/node_modules/undici/package.json').version"
 
 WORKDIR /app
 
