@@ -1,9 +1,9 @@
-
+```dockerfile
 FROM node:22-alpine
 
-# Update npm and its bundled undici dependency
 RUN npm install --global npm@latest \
-    && npm install --global undici@6.29.1
+    && npm install --prefix /usr/local/lib/node_modules/npm undici@6.29.1 \
+    && node -p "require('/usr/local/lib/node_modules/npm/node_modules/undici/package.json').version"
 
 WORKDIR /app
 
@@ -17,3 +17,4 @@ USER node
 EXPOSE 3000
 
 CMD ["node", "app.js"]
+```
