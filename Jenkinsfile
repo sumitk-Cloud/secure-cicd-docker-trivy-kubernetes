@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        DOCKERHUB_REPO = 'sumitk5550/secure-cicdo'
+        DOCKERHUB_REPO = 'sumitk5550/secure-cicd'
         IMAGE_NAME = "${DOCKERHUB_REPO}:${BUILD_NUMBER}"
     }
 
