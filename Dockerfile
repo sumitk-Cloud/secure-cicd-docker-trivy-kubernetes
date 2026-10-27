@@ -1,4 +1,4 @@
-```dockerfile
+
 FROM node:22-alpine
 
 # Update npm and its bundled dependencies
@@ -16,4 +16,3 @@ USER node
 EXPOSE 3000
 
 CMD ["node", "app.js"]
-```
