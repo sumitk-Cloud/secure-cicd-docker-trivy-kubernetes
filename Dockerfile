@@ -1,8 +1,9 @@
 
 FROM node:22-alpine
 
-# Update npm and its bundled dependencies
-RUN npm install --global npm@latest
+# Update npm and its bundled undici dependency
+RUN npm install --global npm@latest \
+    && npm install --global undici@6.29.1
 
 WORKDIR /app
 
